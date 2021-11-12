@@ -10,6 +10,23 @@ import java.io.IOException;
 public class Game {
     private Screen screen;
 
+    private void draw() throws IOException {
+        try{
+        screen.clear();
+        screen.setCharacter(10, 10, TextCharacter.fromCharacter('X')[0]);
+        screen.refresh();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void run() throws IOException {
+        draw();
+
+
+
+    }
+
     public Game() {
         try {
             TerminalSize terminalSize = new TerminalSize(40, 20);
@@ -19,10 +36,6 @@ public class Game {
             screen.setCursorPosition(null); // we don't need a cursor
             screen.startScreen(); // screens must be started
             screen.doResizeIfNecessary(); // resize screen if necessary
-
-            screen.clear();
-            screen.setCharacter(10, 10, TextCharacter.fromCharacter('X')[0]);
-            screen.refresh();
 
         } catch (IOException e) {
             e.printStackTrace();
