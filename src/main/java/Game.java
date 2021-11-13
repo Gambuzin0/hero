@@ -13,35 +13,12 @@ import static com.googlecode.lanterna.input.KeyType.*;
 
 public class Game {
     private Screen screen;
-    private int x = 10;
-    private int y = 10;
-
-
-    private void processKey(KeyStroke key) throws IOException {
-        switch(key.getKeyType()){
-            case Character:
-                if(key.getCharacter() == 'q')
-                    screen.close();
-                break;
-            case ArrowUp:
-                y++;
-                break;
-            case ArrowDown:
-                y--;
-                break;
-            case ArrowRight:
-                x++;
-                break;
-            case ArrowLeft:
-                x--;
-                break;
-        }
-    }
+    private Arena arena = new Arena(40,20);
 
     private void draw() throws IOException {
         try{
         screen.clear();
-        screen.setCharacter(x, y, TextCharacter.fromCharacter('X')[0]);
+        arena.draw(screen);
         screen.refresh();
 
         } catch (IOException e) {
@@ -55,7 +32,10 @@ public class Game {
         KeyStroke key = screen.readInput();
         if(key.getKeyType() == EOF)
             break;
-        processKey(key);
+        else if (key.getKeyType() == KeyType.Character && key.getCharacter() == 'q')
+            screen.close();
+        else
+            arena.processKey(key);
         }
 
     }
