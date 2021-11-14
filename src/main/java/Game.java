@@ -1,6 +1,4 @@
 import com.googlecode.lanterna.TerminalSize;
-import com.googlecode.lanterna.TextCharacter;
-import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
@@ -16,7 +14,7 @@ public class Game {
     private Screen screen;
     private Arena arena = new Arena(40,20);
 
-    private void draw() throws IOException {
+    private void draw() {
         try{
         screen.clear();
         arena.draw(screen.newTextGraphics());
