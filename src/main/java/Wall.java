@@ -6,15 +6,18 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 public class Wall {
     private Position position;
 
-    public Wall(int x, int y){
-        position = new Position(x,y);
+    public Wall(int x, int y) {
+        position = new Position(x, y);
     }
 
-    public void draw(TextGraphics graphics){
+    public void draw(TextGraphics graphics) {
         graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
         graphics.enableModifiers(SGR.BOLD);
         graphics.putString(new TerminalPosition(position.getX(), position.getY()), "#");
 
     }
 
+    public Position getPosition() {
+        return position;
+    }
 }
