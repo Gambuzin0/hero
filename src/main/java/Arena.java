@@ -55,20 +55,12 @@ public class Arena {
         hero.draw(graphics);
     }
 
-    public void processKey(KeyStroke key) throws IOException {
-        switch(key.getKeyType()){
-            case ArrowUp:
-                moveHero(hero.moveUp());
-                break;
-            case ArrowDown:
-                moveHero(hero.moveDown());
-                break;
-            case ArrowRight:
-                moveHero(hero.moveRight());
-                break;
-            case ArrowLeft:
-                moveHero(hero.moveLeft());
-                break;
+    public void processKey(KeyStroke key)  {
+        switch (key.getKeyType()) {
+            case ArrowUp -> moveHero(hero.moveUp());
+            case ArrowDown -> moveHero(hero.moveDown());
+            case ArrowRight -> moveHero(hero.moveRight());
+            case ArrowLeft -> moveHero(hero.moveLeft());
         }
     }
 }
