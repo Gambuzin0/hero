@@ -12,12 +12,22 @@ public class Arena {
     private Hero hero = new Hero(20,10);
     private List<Wall> walls;
     private List<Coin> coins;
-
+    private List<Monster> monsters;
     public Arena(int width, int height){
         this.width = width;
         this.height = height;
         this.walls = createWalls();
         this.coins = createCoins();
+        this.monsters = createMonsters();
+    }
+
+    private List<Monster> createMonsters(){
+        Random random = new Random();
+        ArrayList<Monster> monsters = new ArrayList<>();
+        for (int i = 0; i < 5; i++)
+            monsters.add(new Monster(random.nextInt(width - 2) +
+                    1, random.nextInt(height - 2) + 1));
+        return monsters;
     }
 
     private List<Coin> createCoins() {
@@ -46,7 +56,17 @@ public class Arena {
             hero.setPosition(position);
         }
         retrieveCoins();
+        verifyMonsterCollisions();
     }
+
+    public void verifyMonsterCollisions(){
+        for(Monster monster : monsters)
+            if(monster.getPosition().equals(hero.getPosition())){
+                System.out.println("Unfortunately you died!");
+                System.exit(0);
+            }
+    }
+
     public void retrieveCoins(){
         for(Coin coin : coins){
             if(coin.getPosition().equals(hero.getPosition())){
@@ -76,10 +96,24 @@ public class Arena {
         for (Coin coin : coins)
             coin.draw(graphics);
 
+        for (Monster monster : monsters)
+            monster.draw(graphics);
+
         hero.draw(graphics);
     }
 
+    public void moveMonsters(){
+        for(Monster monster : monsters){
+            Position prev_pos = monster.getPosition();
+            Position pos = monster.move();
+            if(pos.getY() >= height - 1 || pos.getY() < 1 || pos.getX() >= width -1 || pos.getX() < 1)
+                pos = prev_pos;
+            monster.setPosition(pos);
+        }
+    }
+
     public void processKey(KeyStroke key)  {
+        moveMonsters();
         switch (key.getKeyType()) {
             case ArrowUp:
                 moveHero(hero.moveUp());
