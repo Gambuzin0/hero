@@ -3,3 +3,6 @@
 out/
 build/
 *.iml
+.vscode/launch.json
+.settings/org.eclipse.buildship.core.prefs
+.project
